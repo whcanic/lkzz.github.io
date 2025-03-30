@@ -131,6 +131,7 @@ input, select, textarea {
 	}
 
 	p {
+		color: #333; 
 		margin: 0 0 2em 0;
 	}
 
