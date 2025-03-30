@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>搜索 （dfs以及bfs）</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    
+    <!-- 新增代码高亮样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+    <style>
+        /* 专门为博文内容添加的缩进样式 */
+        .post-content {
+            margin: 0 2em;
+        }
+        .post-content p {
+            text-indent: 2em;
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <!-- 修正后的图片路径 -->
+    <div class="image main">
+        <img src="../images/thumbs/02.jpg" alt="P1036 [NOIP 2002 普及组] 选数示意图" style="width:100%"/>
+    </div>
+    
+    <div class="post-content">
+        <h1>深度优化搜索</h1>
+        
+        <p>本题是组合问题，求不同的数的组和是否为素数</p>
+
+        <h2>代码实现</h2>
+        <pre><code class="language-c">
+    #include &lt;stdio.h&gt;
+    #include &lt;stdbool.h&gt;
+    
+    int n, k;
+    int a[20];
+    int count = 0;//定义全局变量，否则无法在函数中使用。
+    
+    bool isPrime(int num) {//经典的判断素数的函数，需要注意的是，2是素数，但是1不是素数，所以需要特判。
+        if(num < 2) return false;
+        for(int i = 2; i * i <= num; i++) {
+            if(num % i == 0) return false;
+        }
+        return true;
+    }
+    
+    void dfs(int start, int sum, int selceted) {//dfs主要过程是，从start开始，选selceted个数字，和为sum。
+        if(selceted == k) {
+            if(isPrime(sum)) {
+                count++;//用两个if来判断条件，不能合并，因为selected==k需要结束，而此时sum不一定是素数，所以需要判断。
+            }
+            return;
+        }
+        for(int i = start; i < n; i++) {
+            dfs(i + 1, sum + a[i], selceted + 1);//这里是i+1，不是start+1，因为start是当前的起点，i是当前的位置，i+1是下一个位置。
+                                                 //如果dfs返回了，会进入下一个循环，所以i可能从1变为3。
+        }
+    }
+    
+    int main() {
+        scanf("%d %d", &n, &k);
+        for(int i = 0; i < n; i++) {
+            scanf("%d", &a[i]);
+        }
+        dfs(0, 0, 0);
+        printf("%d", count);
+        return 0;
+}</code></pre>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+</body>
+</html>
