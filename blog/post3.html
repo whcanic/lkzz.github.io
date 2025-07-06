@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>贪心求最大字符串</title>
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    
+    <!-- 新增代码高亮样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" />
+    <style>
+        /* 专门为博文内容添加的缩进样式 */
+        .post-content {
+            margin: 0 2em;
+        }
+        .post-content p {
+            text-indent: 2em;
+            line-height: 1.8;
+            margin-bottom: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <!-- 修正后的图片路径 -->
+    <div class="image main">
+        <img src="../images/thumbs/03.jpg" alt="NOIP1998 提高组 第二题" style="width:100%"/>
+    </div>
+    
+    <div class="post-content">
+        <h1>贪心求最大字符串</h1>
+        
+        <p>本题核心是sort排序，用cmp自定义排序顺序，把大的拼接数放在前面。sort逻辑如图展示，再去比较5和9，3和30来达到最大字符串。</p>
+
+        <h2>代码实现</h2>
+        <pre><code class="language-cpp">
+    #include &lt;bits/stdc++.h&gt;
+    
+using namespace std;
+
+bool cmp(string a, string b){
+    return a + b > b + a;
+}
+int main(){
+    int n;
+    cin >> n;
+    string s[21];
+    for(int i = 0; i < n; i++){
+        cin >> s[i];
+    }
+    sort(s, s + n, cmp);
+    for(int i = 0; i < n; i++){
+        cout << s[i];
+    }
+    return 0;
+}
+}</code></pre>
+</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+</body>
+</html>
